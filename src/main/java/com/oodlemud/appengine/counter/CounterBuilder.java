@@ -17,107 +17,102 @@
 package com.oodlemud.appengine.counter;
 
 import lombok.NonNull;
+
 import com.oodlemud.appengine.counter.data.CounterData;
 import com.oodlemud.appengine.counter.data.CounterData.CounterStatus;
 
 public class CounterBuilder {
-	@NonNull
-	private final String counterName;
+	public static final Counter zero(final String counterName) {
+		return new CounterBuilder(counterName).build();
+	}
+
+	@NonNull private final String counterName;
 	private CounterStatus counterStatus = CounterStatus.AVAILABLE;
+
 	private long count;
-	
+
 	/**
-	 * Build method for constructing a new Counter.
-	 *
-	 * @param builder
+	 * Build method for constructing a new Counter.
+	 * 
+	 * 
+	 * 
+	 * @param builder
+	 * 
 	 * @return
 	 */
-	public CounterBuilder(CounterData counterData) {
-		
+	public CounterBuilder(final CounterData counterData) {
+
 		this.counterName = counterData.getCounterName();
 		this.counterStatus = counterData.getCounterStatus();
 	}
-	
+
+	@java.beans.ConstructorProperties({ "counterName" })
+	@java.lang.SuppressWarnings("all")
+	public CounterBuilder(@NonNull final String counterName) {
+
+		if (counterName == null) {
+			throw new java.lang.NullPointerException("counterName");
+		}
+		this.counterName = counterName;
+	}
+
 	/**
-	 * Build method for constructing a new Counter.
-	 *
-	 * @param builder
+	 * Build method for constructing a new Counter.
+	 * 
+	 * 
+	 * 
+	 * @param builder
+	 * 
 	 * @return
 	 */
 	public Counter build() {
 		return new Counter(this.getCounterName(), this.getCounterStatus(), this.getCount());
 	}
-	
-	/**
-	 * @param counterStatus
-	 * @return
-	 */
-	public CounterBuilder withCounterStatus(CounterStatus counterStatus) {
-		this.setCounterStatus(counterStatus);
-		return this;
+
+	@java.lang.SuppressWarnings("all")
+	public boolean canEqual(final java.lang.Object other) {
+		return other instanceof CounterBuilder;
 	}
-	
-	/**
-	 * @param count
-	 * @return
-	 */
-	public CounterBuilder withCount(final long count) {
-		this.setCount(count);
-		return this;
+
+	@java.lang.Override
+	@java.lang.SuppressWarnings("all")
+	public boolean equals(final java.lang.Object o) {
+		if (o == this)
+			return true;
+		if (!(o instanceof CounterBuilder))
+			return false;
+		final CounterBuilder other = (CounterBuilder) o;
+		if (!other.canEqual(this))
+			return false;
+		final java.lang.Object this$counterName = this.getCounterName();
+		final java.lang.Object other$counterName = other.getCounterName();
+		if (this$counterName == null ? other$counterName != null : !this$counterName.equals(other$counterName))
+			return false;
+		final java.lang.Object this$counterStatus = this.getCounterStatus();
+		final java.lang.Object other$counterStatus = other.getCounterStatus();
+		if (this$counterStatus == null ? other$counterStatus != null : !this$counterStatus.equals(other$counterStatus))
+			return false;
+		if (this.getCount() != other.getCount())
+			return false;
+		return true;
 	}
-	
-	public static final Counter zero(String counterName) {
-		return new CounterBuilder(counterName).build();
+
+	@java.lang.SuppressWarnings("all")
+	public long getCount() {
+		return this.count;
 	}
-	
+
 	@NonNull
 	@java.lang.SuppressWarnings("all")
 	public String getCounterName() {
 		return this.counterName;
 	}
-	
+
 	@java.lang.SuppressWarnings("all")
 	public CounterStatus getCounterStatus() {
 		return this.counterStatus;
 	}
-	
-	@java.lang.SuppressWarnings("all")
-	public long getCount() {
-		return this.count;
-	}
-	
-	@java.lang.SuppressWarnings("all")
-	public void setCounterStatus(final CounterStatus counterStatus) {
-		this.counterStatus = counterStatus;
-	}
-	
-	@java.lang.SuppressWarnings("all")
-	public void setCount(final long count) {
-		this.count = count;
-	}
-	
-	@java.lang.Override
-	@java.lang.SuppressWarnings("all")
-	public boolean equals(final java.lang.Object o) {
-		if (o == this) return true;
-		if (!(o instanceof CounterBuilder)) return false;
-		final CounterBuilder other = (CounterBuilder)o;
-		if (!other.canEqual((java.lang.Object)this)) return false;
-		final java.lang.Object this$counterName = this.getCounterName();
-		final java.lang.Object other$counterName = other.getCounterName();
-		if (this$counterName == null ? other$counterName != null : !this$counterName.equals(other$counterName)) return false;
-		final java.lang.Object this$counterStatus = this.getCounterStatus();
-		final java.lang.Object other$counterStatus = other.getCounterStatus();
-		if (this$counterStatus == null ? other$counterStatus != null : !this$counterStatus.equals(other$counterStatus)) return false;
-		if (this.getCount() != other.getCount()) return false;
-		return true;
-	}
-	
-	@java.lang.SuppressWarnings("all")
-	public boolean canEqual(final java.lang.Object other) {
-		return other instanceof CounterBuilder;
-	}
-	
+
 	@java.lang.Override
 	@java.lang.SuppressWarnings("all")
 	public int hashCode() {
@@ -128,23 +123,43 @@ public class CounterBuilder {
 		final java.lang.Object $counterStatus = this.getCounterStatus();
 		result = result * PRIME + ($counterStatus == null ? 0 : $counterStatus.hashCode());
 		final long $count = this.getCount();
-		result = result * PRIME + (int)($count >>> 32 ^ $count);
+		result = result * PRIME + (int) ($count >>> 32 ^ $count);
 		return result;
 	}
-	
+
+	@java.lang.SuppressWarnings("all")
+	public void setCount(final long count) {
+		this.count = count;
+	}
+
+	@java.lang.SuppressWarnings("all")
+	public void setCounterStatus(final CounterStatus counterStatus) {
+		this.counterStatus = counterStatus;
+	}
+
 	@java.lang.Override
 	@java.lang.SuppressWarnings("all")
 	public java.lang.String toString() {
 		return "CounterBuilder(counterName=" + this.getCounterName() + ", counterStatus=" + this.getCounterStatus() + ", count=" + this.getCount() + ")";
 	}
-	
-	@java.beans.ConstructorProperties({"counterName"})
-	@java.lang.SuppressWarnings("all")
-	public CounterBuilder(@NonNull final String counterName) {
-		
-		if (counterName == null) {
-			throw new java.lang.NullPointerException("counterName");
-		}
-		this.counterName = counterName;
+
+	/**
+	 * @param count
+	 * 
+	 * @return
+	 */
+	public CounterBuilder withCount(final long count) {
+		this.setCount(count);
+		return this;
+	}
+
+	/**
+	 * @param counterStatus
+	 * 
+	 * @return
+	 */
+	public CounterBuilder withCounterStatus(final CounterStatus counterStatus) {
+		this.setCounterStatus(counterStatus);
+		return this;
 	}
 }

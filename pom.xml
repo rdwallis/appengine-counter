@@ -53,8 +53,6 @@
 		<appengine.target.version>1.8.8</appengine.target.version>
 		<objectify.version>4.0rc2</objectify.version>
 
-		<joda.money.version>0.9</joda.money.version>
-		<joda.time.version>2.3</joda.time.version>
 		<guava.version>15.0</guava.version>
 		<lombok.version>1.12.2</lombok.version>
 
@@ -151,12 +149,6 @@
 		<!-- ############## -->
 
 		<dependency>
-			<groupId>com.sappenin.objectify</groupId>
-			<artifactId>objectify-utils</artifactId>
-			<version>2.3.5</version>
-		</dependency>
-
-		<dependency>
 			<groupId>com.googlecode.objectify</groupId>
 			<artifactId>objectify</artifactId>
 			<version>${objectify.version}</version>
@@ -168,11 +160,7 @@
 			<version>3.1</version>
 		</dependency>
 
-		<!-- <dependency> <groupId>com.google.guava</groupId> <artifactId>guava</artifactId> 
-			<version>${guava.version}</version> </dependency> -->
-
-		<!-- <dependency> <groupId>joda-time</groupId> <artifactId>joda-time</artifactId> 
-			<version>${joda.time.version}</version> </dependency> -->
+	
 
 	</dependencies>
 

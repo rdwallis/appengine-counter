@@ -17,130 +17,110 @@
 package com.oodlemud.appengine.counter.data.base;
 
 import java.util.UUID;
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
+
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.annotation.Id;
 
 /**
- * An abstract base class for appengine-counter entities (data stored to the
- * datastore).
- *
+ * An abstract base class for appengine-counter entities (data stored to the
+ * 
+ * datastore).
+ * 
+ * 
+ * 
  * @author David Fuelling <dfuelling@oodlemud.com>
  */
 public abstract class AbstractEntity {
-	@Id
-	private String id;
-	private DateTime creationDateTime;
-	private DateTime updatedDateTime;
-	
+	@Id private String id;
+
 	/**
 	 * Default Constructor
 	 */
 	public AbstractEntity() {
 		this(UUID.randomUUID().toString());
 	}
-	
+
 	/**
-	 * Required Params constructor
-	 *
-	 * @param id A globally unique identifier (i.e., a {@link UUID} as a
-	 * String).
+	 * Required Params constructor
+	 * 
+	 * 
+	 * 
+	 * @param id
+	 *            A globally unique identifier (i.e., a {@link UUID} as a
+	 * 
+	 *            String).
 	 */
-	public AbstractEntity(String id) {
-		
+	public AbstractEntity(final String id) {
+
 		this.id = id;
-		this.creationDateTime = DateTime.now(DateTimeZone.UTC);
-		this.updatedDateTime = DateTime.now(DateTimeZone.UTC);
+
 	}
-	
+
+	@java.lang.SuppressWarnings("all")
+	public boolean canEqual(final java.lang.Object other) {
+		return other instanceof AbstractEntity;
+	}
+
+	@java.lang.Override
+	@java.lang.SuppressWarnings("all")
+	public boolean equals(final java.lang.Object o) {
+		if (o == this)
+			return true;
+		if (!(o instanceof AbstractEntity))
+			return false;
+		final AbstractEntity other = (AbstractEntity) o;
+		if (!other.canEqual(this))
+			return false;
+		final java.lang.Object this$id = this.getId();
+		final java.lang.Object other$id = other.getId();
+		if (this$id == null ? other$id != null : !this$id.equals(other$id))
+			return false;
+		return true;
+	}
+
+	@java.lang.SuppressWarnings("all")
+	public String getId() {
+		return this.id;
+	}
+
 	/**
-	 * By default, Entities have a null parent Key. This is overridden by
+	 * Assembles the Key for this entity. If an Entity has a Parent Key, that
+	 * 
+	 * key will be included in the returned Key heirarchy.
+	 */
+	public com.google.appengine.api.datastore.Key getKey() {
+		final Key<?> typedKey = this.getTypedKey();
+		return typedKey == null ? null : typedKey.getRaw();
+	}
+
+	/**
+	 * By default, Entities have a null parent Key. This is overridden by
+	 * 
 	 * implementations if a Parent key exists.
 	 */
 	public Key<?> getParentKey() {
 		return null;
 	}
-	
+
 	/**
-	 * Assembles the Key for this entity. If an Entity has a Parent Key, that
-	 * key will be included in the returned Key heirarchy.
-	 *
+	 * Assembles the Key for this entity. If an Entity has a Parent Key, that
+	 * 
+	 * key will be included in the returned Key heirarchy.
+	 * 
+	 * 
+	 * 
 	 * @return
 	 */
 	public <T> Key<T> getTypedKey() {
 		if (this.getId() == null) {
 			return null;
 		} else {
-			com.google.appengine.api.datastore.Key rawKey = ObjectifyService.factory().getMetadataForEntity(this).getKeyMetadata().getRawKey(this);
+			final com.google.appengine.api.datastore.Key rawKey = ObjectifyService.factory().getMetadataForEntity(this).getKeyMetadata().getRawKey(this);
 			return Key.create(rawKey);
 		}
 	}
-	
-	/**
-	 * Assembles the Key for this entity. If an Entity has a Parent Key, that
-	 * key will be included in the returned Key heirarchy.
-	 */
-	public com.google.appengine.api.datastore.Key getKey() {
-		Key<?> typedKey = this.getTypedKey();
-		return typedKey == null ? null : typedKey.getRaw();
-	}
-	
-	@java.lang.SuppressWarnings("all")
-	public String getId() {
-		return this.id;
-	}
-	
-	@java.lang.SuppressWarnings("all")
-	public DateTime getCreationDateTime() {
-		return this.creationDateTime;
-	}
-	
-	@java.lang.SuppressWarnings("all")
-	public DateTime getUpdatedDateTime() {
-		return this.updatedDateTime;
-	}
-	
-	@java.lang.SuppressWarnings("all")
-	public void setId(final String id) {
-		this.id = id;
-	}
-	
-	@java.lang.SuppressWarnings("all")
-	public void setCreationDateTime(final DateTime creationDateTime) {
-		this.creationDateTime = creationDateTime;
-	}
-	
-	@java.lang.SuppressWarnings("all")
-	public void setUpdatedDateTime(final DateTime updatedDateTime) {
-		this.updatedDateTime = updatedDateTime;
-	}
-	
-	@java.lang.Override
-	@java.lang.SuppressWarnings("all")
-	public java.lang.String toString() {
-		return "AbstractEntity(id=" + this.getId() + ", creationDateTime=" + this.getCreationDateTime() + ", updatedDateTime=" + this.getUpdatedDateTime() + ")";
-	}
-	
-	@java.lang.Override
-	@java.lang.SuppressWarnings("all")
-	public boolean equals(final java.lang.Object o) {
-		if (o == this) return true;
-		if (!(o instanceof AbstractEntity)) return false;
-		final AbstractEntity other = (AbstractEntity)o;
-		if (!other.canEqual((java.lang.Object)this)) return false;
-		final java.lang.Object this$id = this.getId();
-		final java.lang.Object other$id = other.getId();
-		if (this$id == null ? other$id != null : !this$id.equals(other$id)) return false;
-		return true;
-	}
-	
-	@java.lang.SuppressWarnings("all")
-	public boolean canEqual(final java.lang.Object other) {
-		return other instanceof AbstractEntity;
-	}
-	
+
 	@java.lang.Override
 	@java.lang.SuppressWarnings("all")
 	public int hashCode() {
@@ -149,5 +129,10 @@ public abstract class AbstractEntity {
 		final java.lang.Object $id = this.getId();
 		result = result * PRIME + ($id == null ? 0 : $id.hashCode());
 		return result;
+	}
+
+	@java.lang.SuppressWarnings("all")
+	public void setId(final String id) {
+		this.id = id;
 	}
 }
