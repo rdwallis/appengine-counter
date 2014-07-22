@@ -16,7 +16,7 @@
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.oodlemud.appengine.counter</groupId>
+	<groupId>com.wallissoftware</groupId> <!-- changed to prevent auto updates to main project -->
 	<artifactId>appengine-counter</artifactId>
 	<version>1.0.2-SNAPSHOT</version>
 	<name>appengine-counter</name>
